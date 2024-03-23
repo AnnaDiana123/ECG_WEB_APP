@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ECG Readings Visualization</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <input type="date" id="datePicker">
+        <button id="loadDataButton">Load Data</button>
+        <div id="timestampDisplay">Timestamp: <span id="timestampValue">None</span></div>
+        <canvas id="ecgChart"></canvas>
+    </div>
+    <script src="/js/readingsDashboard.js" type="module"></script>
+</body>
+</html>

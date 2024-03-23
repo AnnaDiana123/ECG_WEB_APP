@@ -33,7 +33,7 @@
                 </ul>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                <a class="nav-link" href="readingsDashboard.html">ECG Chart</a>
               </li>
             </ul>
             <form class="d-flex" role="signout">
@@ -47,36 +47,7 @@
     <h2 id="greet"></h2>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    
-    <script>
-        //get the user cred and info from the sessionStorage
-        let UserCreds = JSON.parse(sessionStorage.getItem("user-creds"));
-        let UserInfo = JSON.parse(sessionStorage.getItem("user-info"));
-
-        let MsgHead = document.getElementById('msg');
-        let GreetHead = document.getElementById('greet');
-        let SignOutBtn= document.getElementById('signoutbutton');
-
-
-        let SignOut = ()=>{
-            //remove the info and cred of the user
-            sessionStorage.removeItem("user-creds");
-            sessionStorage.removeItem("user-info");
-            window.location.href='login.html';
-        }
-
-        let CheckCred = ()=>{
-            if(!sessionStorage.getItem("user-creds"))
-                window.location.href='login.html';
-            else{
-                MsgHead.innerText = `user with email "${UserCreds.email}" logged in`;
-                GreetHead.innerText = `Welcome "${UserInfo.Name}" with "${UserInfo.DeviceId}" and "${UserInfo.CNP}" `;
-            }
-        }
-
-        window.addEventListener('load',CheckCred);
-        SignOutBtn.addEventListener('click',SignOut);
-    </script>
+    <script src="/js/home.js" type="module"></script>
 
 </body>
 </html>

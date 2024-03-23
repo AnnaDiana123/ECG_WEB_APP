@@ -33,59 +33,9 @@
         </div>
 
         <button type="submit" class="btn btn-primary" style="float:  right;">Create New User</button>
-        <a href="login.html"> <button type="button" class="btn btn-primary me-2" style="float:  right;">Sign In</button> </a>
+        <a href="index.html"> <button type="button" class="btn btn-primary me-2" style="float:  right;">Sign In</button> </a>
     </form>
-    
-    
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
-        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-analytics.js";
-        
-        const firebaseConfig = {
-          apiKey: "AIzaSyBOesAtQekwBT9_yuXpoaGCg6gmxiizzP4",
-          authDomain: "ecgapp-7d874.firebaseapp.com",
-          projectId: "ecgapp-7d874",
-          storageBucket: "ecgapp-7d874.appspot.com",
-          messagingSenderId: "931292339686",
-          appId: "1:931292339686:web:2f75e50b490be933f94a27",
-          measurementId: "G-2BE9FVBPMW"
-        };
-      
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore();
-        const auth = getAuth();
-        const analytics = getAnalytics(app);
+    <script src="/js/register.js" type="module"></script>
 
-        let emailInput = document.getElementById("emailInput");
-        let passwordInput = document.getElementById("passwordInput");
-        let nameInput = document.getElementById("nameInput");
-        let cnpInput = document.getElementById("cnpInput");
-        let deviceIdInput = document.getElementById("deviceIdInput");
-
-        let RegisterUser = evt => {
-            evt.preventDefault();
-
-            createUserWithEmailAndPassword(auth, emailInput.value, passwordInput.value)
-            .then(async(credentials)=>{
-                var ref = doc(db, "UserAuthList",credentials.user.uid);
-                await setDoc(ref,{
-                    Name: nameInput.value,
-                    CNP: cnpInput.value,
-                    DeviceId: deviceIdInput.value
-                });
-            })
-
-            .catch((error)=>{
-                alert(error.message);
-                console.log(error.code);
-                console.log(error.message);
-            })
-        }
-
-        MainForm.addEventListener('submit',RegisterUser);
-      </script>
   </body>
 </html>

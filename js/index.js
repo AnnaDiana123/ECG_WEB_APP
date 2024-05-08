@@ -18,23 +18,24 @@ let SignInUser = evt => {
 
     signInWithEmailAndPassword(auth, emailInput.value, passwordInput.value)
     .then(async(credentials)=>{
-        var ref = doc(db, "UserAuthList",credentials.user.uid);
-        //docSnap referst to data to a specific document from firestore  (gets the uid from UserAuthList from Firestore)
-        const docSnap = await getDoc(ref);
+        //store the user credential details
+        sessionStorage.setItem("user-creds",JSON.stringify(credentials.user));
 
-        if(docSnap.exists()){
-            //stores the user info in the memory of the current session, if you close the browser you will lose the info
-            sessionStorage.setItem("user-info",JSON.stringify({
-                Name: docSnap.data().Name,
-                CNP: docSnap.data().CNP,
-                DeviceId: docSnap.data().DeviceId,
+            if(credentials.user.uid == 'lCZHCUs76gXGS5dEfYiWZQNdp5G2'){
+                //change location to home page
+                window.location.href="adminHome.html";
+            }
+            else{
+                var ref = doc(db, "UserAuthList",credentials.user.uid);
+                //docSnap referst to data to a specific document from firestore  (gets the uid from UserAuthList from Firestore)
+                const docSnap = await getDoc(ref);
 
-            }))
-            //also store the user credential details
-            sessionStorage.setItem("user-creds",JSON.stringify(credentials.user));
-            //change location to home page
-            window.location.href="home.html";
+                if(docSnap.exists()){
+                    //change location to home page
+                    window.location.href="userHome.html";
+                }
         }
+        
     })
 
     .catch((error)=>{

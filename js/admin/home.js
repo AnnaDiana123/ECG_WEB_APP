@@ -1,22 +1,23 @@
-//get the user cred and info from the sessionStorage
-let MsgHead = document.getElementById('msg');
-let GreetHead = document.getElementById('greet');
-let SignOutBtn= document.getElementById('signoutbutton');
+import { signOut } from "../services/auth.js";
 
-
-let SignOut = ()=>{
-    //remove the info and cred of the user
-    sessionStorage.removeItem("user-creds");
-    window.location.href='index.html';
-}
-
-let CheckCred = ()=>{
+const checkCred = ()=>{
     if(!sessionStorage.getItem("user-creds"))
         window.location.href='index.html';
     else{
+        const GreetHead = document.getElementById('greet');
         GreetHead.innerText = "Hello Admin! ";
     }
 }
 
-window.addEventListener('load',CheckCred);
-SignOutBtn.addEventListener('click',SignOut);
+//event listener for DOMContentLoaded to ensure DOM is fully loaded before running the script
+document.addEventListener('DOMContentLoaded', () => {
+    //vheck creds from session storage
+    checkCred();
+
+    // get buttons
+    const SignOutBtn= document.getElementById('signoutbutton');
+    
+    //add event listener to buttons
+    SignOutBtn.addEventListener('click',signOut);
+
+});

@@ -1,77 +1,89 @@
+//import moduels from Firestore
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-import { getFirestore, collection, doc, getDocs, query, where , documentId, getDoc, updateDoc} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
-import { firebaseConfig } from "../firebaseConfig.js";
+import { getFirestore, doc,  updateDoc} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+//import firebase config
+import { firebaseConfig } from "../components/firebaseConfig.js";
+//import functionalities
+import { signOut, getUserIdFromSessionStorage } from "../services/auth.js";
+import { fetchUserData } from "../services/dataServices.js";
 
+
+//initialize firebase app with configuration
 const app = initializeApp(firebaseConfig);
+//get firestore instance
 const db = getFirestore(app);
 
 
-let SignOutBtn = document.getElementById('signoutbutton');
-let updateDeviceIdButton = document.getElementById('updateDeviceIdButton');
-
-
-let SignOut = ()=>{
-    //remove the info and cred of the user
-    sessionStorage.removeItem("user-creds");
-    window.location.href='index.html';
-}
-
-let CheckCred = ()=>{
+//functions that checks user id stored in session storage
+const checkCred = ()=>{
     if(!sessionStorage.getItem("user-creds"))
+        //redirect to login page if no user creds are found
         window.location.href='index.html';
 }
 
 
-// Function to fetch user data
-async function fetchUserData() {
-    let UserCreds = JSON.parse(sessionStorage.getItem("user-creds"));
-    const userId = UserCreds.uid;
+//function to display user data
+const displayUserData = async () => {
+    const userId = getUserIdFromSessionStorage();
 
-    const userRef = doc(db, 'UserAuthList', userId);
-    const docSnap = await getDoc(userRef);
+    try {
+        //fetch user data from firestore
+        const userData = await fetchUserData(userId);
 
-    if (docSnap.exists()) {
-        const userData = docSnap.data();
-        document.getElementById('nameField').value = userData.Name;
-        document.getElementById('cnpField').value = userData.CNP;
-        document.getElementById('deviceIdField').value = userData.DeviceId;
-    } else {
-        console.log("No such user!");
+        if (userData) {
+            //display fetched data
+            document.getElementById('nameField').value = userData.Name;
+            document.getElementById('cnpField').value = userData.CNP;
+            document.getElementById('deviceIdField').value = userData.DeviceId;
+        }
+    } catch (error) {
+        console.error("Error displaying user data:", error);
     }
+
 }
 
 
-window.addEventListener('load',CheckCred);
-SignOutBtn.addEventListener('click',SignOut);
-
-document.getElementById('updateDeviceIdButton').addEventListener('click',async function(event) {
-    event.preventDefault();  // Prevent the form from submitting immediately
+//function that updates user device id
+const updateDeviceId = async (event) => {
+    event.preventDefault();  //prevent the form from submitting immediately
     
-        let UserCreds = JSON.parse(sessionStorage.getItem("user-creds"));
-        const userId = UserCreds.uid;
+    const userId = getUserIdFromSessionStorage();
     
-        const newDeviceId= document.getElementById('deviceIdField').value;
+    //get the new device id value 
+    const newDeviceId= document.getElementById('deviceIdField').value;
     
-        if(newDeviceId){
-            const userRef = doc(db, 'UserAuthList', userId);
+    if(newDeviceId){
+        //fetch user document
+        const userRef = doc(db, 'UserAuthList', userId);
     
-            try {
-                updateDoc(userRef, {
-                    DeviceId: newDeviceId
-                });
-                alert('Device ID updated successfully!');
-            } catch (error) {
-                console.error('Error updating device ID:', error);
-                alert('Failed to update device ID.');
-            }
+        try {
+            //update the device id field
+            updateDoc(userRef, {
+                DeviceId: newDeviceId
+            });
+            alert('Device ID updated successfully!');
+        } catch (error) {
+            console.error('Error updating device ID:', error);
+            alert('Failed to update device ID.');
         }
-        else{
-            alert('Please fill in the Device Id field!')
-        }
+    }
+    else{
+        alert('Please fill in the Device Id field!');
+    }
 
-});
+};
 
-// Initial data fetch
+
+//event listener for DOMContentLoaded to ensure DOM is fully loaded before running the script
 document.addEventListener('DOMContentLoaded', () => {
-    fetchUserData();  
+    checkCred(); 
+    displayUserData(); 
+
+    //get references to the buttons
+    const signOutButton = document.getElementById('signoutbutton');
+    const updateDeviceIdButton = document.getElementById('updateDeviceIdButton');
+
+    //add event listeners to the buttons
+    signOutButton.addEventListener('click', signOut); 
+    updateDeviceIdButton.addEventListener('click', updateDeviceId); 
 });

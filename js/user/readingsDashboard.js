@@ -17,7 +17,7 @@ const onLoadDataButtonClick = async () => {
 }
 
 
-function onAnalyzeDataButtonClick(){
+const onAnalyzeDataButtonClick = () =>{
   analyzeData(allStructuredReadings, chart);
 }
 

@@ -66,6 +66,8 @@ export const initializeChart = (divId) => {
       yAxis: yAxis,
       valueYField: "ecg_value",
       valueXField: "timestamp",
+      sequencedInterpolation: true,
+      sequencedDelay: 10,
       tooltip: am5.Tooltip.new(root, {
         labelText: "{valueY}"
       })

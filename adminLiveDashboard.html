@@ -17,10 +17,10 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="userHome.html">Home</a>
+                <a class="nav-link active" aria-current="page" href="adminHome.html">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="liveDashboard.html">Live Dashboard</a>
+                <a class="nav-link" href="adminLiveDashboard.html">Live Dashboard</a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -34,7 +34,7 @@
                 </ul>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="userReadingsDashboard.html">ECG Chart</a>
+                <a class="nav-link" href="adminReadingsDashboard.html">ECG Chart</a>
               </li>
             </ul>
             <form class="d-flex" role="signout">
@@ -44,10 +44,14 @@
         </div>
     </nav>
     <div class="container">
+        <label for="pacientName">Pacient Name</label>
+        <input type="text" id="pacientName">
+        <button id="loadLiveDataButton">Display live data</button>
         <div id="chartdiv"></div>
+        <div id="explanationText"></div>
         <div id="analyzisResult"></div>
     </div>
-    <script src="../js/user/liveDashboard.js" type="module"></script>
+    <script src="../js/admin/liveDashboard.js" type="module"></script>
     <!-- Resources for amcharts used for ecg graphs-->
     <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>

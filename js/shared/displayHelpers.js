@@ -2,6 +2,7 @@ import { fetchEcgReadings } from "../services/dataServices";
 
 
 export const displayHealthParameters = (corespondingBatch) => {
+    document.getElementById('analyzisResult').innerHTML = "";
     if (corespondingBatch) {
       const batchStartingTime = new Date(Number(corespondingBatch.docId));
 
@@ -90,6 +91,7 @@ export const displayChartData = async (userId,allStructuredReadings,series) => {
       
           // Update the chart with the new data
           series.data.setAll(chartData);
+
         } catch (error) {
           console.error("Error loading data:", error); // Log any errors that occur
           alert("Failed to load data. Please try again.");

@@ -21,17 +21,6 @@
               <li class="nav-item">
                 <a class="nav-link" href="adminLiveDashboard.html">Live Dashboard</a>
               </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Dropdown
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-              </li>
               <li class="nav-item">
                 <a class="nav-link" href="adminReadingsDashboard.html">ECG Chart</a>
               </li>
@@ -43,8 +32,29 @@
         </div>
     </nav>
 
-    <h2 id="msg"></h2>
-    <h2 id="greet"></h2>
+    <div class="container mt-3">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">CNP</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Date of Birth</th>
+            <th scope="col">Device ID</th>
+          </tr>
+        </thead>
+        <tbody id="userTableBody">
+          <!-- User rows will be added here dynamically -->
+        </tbody>
+      </table>
+      <div class="d-flex justify-content-between">
+        <button class="btn btn-primary" id="prevButton">Previous</button>
+        <button class="btn btn-primary" id="nextButton">Next</button>
+      </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="../../js/admin/home.js" type="module"></script>
+    
+    </body>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="../../js/admin/home.js" type="module"></script>

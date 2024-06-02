@@ -67,6 +67,26 @@ export const fetchUserData = async (userId) => {
   }
 }
 
+export const fetchUsersList = async () => {
+  //create reference to the user collection
+  const userRef = collection(db, 'UserAuthList');
+  //get all documents in the collection
+  const querySnapshot = await getDocs(userRef);
+
+  const users = [];
+
+  //loop through each document in the snapshot
+  querySnapshot.forEach(doc => {
+    //push all entries in the array
+    users.push({
+      //create a new object with the document data
+      ...doc.data()
+    });
+  });
+
+  return users;
+}
+
 export const fetchECGBatch = async (userId, batchId) => {
   //create reference to the batch doc
   const batchRef = doc(db, 'ecg_data', userId, 'readings', batchId);

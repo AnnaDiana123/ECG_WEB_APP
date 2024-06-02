@@ -47,7 +47,7 @@ export const registerUser = async (email,password,name,cnp, birthday, gender, de
 export const signOut = ()=>{
     //remove the info and cred of the user
     sessionStorage.removeItem("user-creds");
-    window.location.href='index.html';
+    window.location.href='../../index.html';
 }
 
 export const getUserIdFromSessionStorage = () => {

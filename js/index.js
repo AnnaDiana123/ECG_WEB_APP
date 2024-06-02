@@ -8,9 +8,9 @@ let SignInUser = evt => {
     signInUser(emailInput.value, passwordInput.value)
         .then(user => {
             if (user.uid == 'lCZHCUs76gXGS5dEfYiWZQNdp5G2') {
-                window.location.href = "adminHome.html";
+                window.location.href = "./html/admin/adminHome.html";
             } else {
-                window.location.href = "userHome.html";
+                window.location.href = "./html/user/userHome.html";
             }
         })
         .catch(error => {

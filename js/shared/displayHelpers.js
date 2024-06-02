@@ -46,7 +46,7 @@ export const analyzeData = (userId, allStructuredReadings, chart) => {
         });
       
         //open the new page in a new tab
-        window.open(`medicalReport.html?${urlParams.toString()}`, '_blank');
+        window.open(`../../medicalReport.html?${urlParams.toString()}`, '_blank');
 
     } else {
       alert("Zoom in or out to incorporate a one minute reading");

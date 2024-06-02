@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "chart.js": "^4.4.3",
+    "dompurify": "^3.1.5",
     "vite": "^5.1.6"
   },
   "scripts": {

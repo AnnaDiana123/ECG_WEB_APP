@@ -67,6 +67,22 @@ export const fetchUserData = async (userId) => {
   }
 }
 
+export const fetchECGBatch = async (userId, batchId) => {
+  //create reference to the batch doc
+  const batchRef = doc(db, 'ecg_data', userId, 'readings', batchId);
+  //get the document
+  const docSnap = await getDoc(batchRef);
+
+  if (docSnap.exists()) {
+    //return batch data
+    return docSnap.data();
+  } else {
+    console.log("No such batch!");
+    return null;
+  }
+
+}
+
 export const subscribeToEcgReadings = (series,userId) => {
   //get the reference to the readings collection
   const readingsRef = collection(db, 'ecg_data', userId, 'readings');

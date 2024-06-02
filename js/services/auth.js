@@ -27,7 +27,7 @@ export const signInUser = async (email, password) => {
     }
 };
 
-export const registerUser = async (email,password,name,cnp,deviceId) => {
+export const registerUser = async (email,password,name,cnp, birthday, gender, deviceId) => {
     try {
         //create user with email and password
         const credentials = await createUserWithEmailAndPassword(auth, email, password);
@@ -35,7 +35,7 @@ export const registerUser = async (email,password,name,cnp,deviceId) => {
         const userRef = doc(db, "UserAuthList", credentials.user.uid);
 
         //set user details
-        await setDoc(userRef, { Name: name, CNP: cnp, DeviceId: deviceId });
+        await setDoc(userRef, { Name: name, CNP: cnp, Birthday:birthday, Gender:gender, DeviceId: deviceId, Role: "User"});
         return credentials.user;
         
     } catch (error) {

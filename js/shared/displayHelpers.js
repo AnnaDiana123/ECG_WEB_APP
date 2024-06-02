@@ -1,4 +1,4 @@
-import { fetchEcgReadings } from "../services/dataServices";
+import { fetchEcgReadings, fetchUserData } from "../services/dataServices";
 
 
 export const displayHealthParameters = (corespondingBatch) => {
@@ -20,10 +20,7 @@ export const displayHealthParameters = (corespondingBatch) => {
   
 
 
-export const analyzeData = (allStructuredReadings, chart) => {
-    //remove old content
-    document.getElementById('analyzisResult').textContent = ""
-
+export const analyzeData = (userId, allStructuredReadings, chart) => {
     let xAxis = chart.xAxes.getIndex(0); //retrieves the x-axis (retrives the first x-axes from the chart x-axis collection)
 
     let start = xAxis.toAxisPosition(0); //retrieves the position coresponding to the start of the axis
@@ -42,17 +39,22 @@ export const analyzeData = (allStructuredReadings, chart) => {
           return data.docId <= startTimeUnix + 10000 && data.docId>= startTimeUnix - 10000; //10 second range
         });
 
-        displayHealthParameters(corespondingBatch);
+        //create a URLSearchParams object to store the user id and batch id for later use
+        const urlParams = new URLSearchParams({
+          userId: userId,
+          batchId: corespondingBatch.docId
+        });
+      
+        //open the new page in a new tab
+        window.open(`medicalReport.html?${urlParams.toString()}`, '_blank');
+
     } else {
-      document.getElementById('analyzisResult').textContent = "Zoom in or out to incorporate a one minute reading";
+      alert("Zoom in or out to incorporate a one minute reading");
     }
 }
 
 
 export const displayChartData = async (userId,allStructuredReadings,series) => {
-    //remove old content
-    document.getElementById('analyzisResult').textContent = "";
-
     //get the date selected by the user
     let dateValue = document.getElementById("datePicker").value;
     let startTimeValue = document.getElementById("startTimePicker").value;

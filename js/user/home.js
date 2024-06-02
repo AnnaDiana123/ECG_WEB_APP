@@ -34,6 +34,8 @@ const displayUserData = async () => {
             //display fetched data
             document.getElementById('nameField').value = userData.Name;
             document.getElementById('cnpField').value = userData.CNP;
+            document.getElementById('birthdayField').value = userData.Birthday;
+            document.getElementById('genderField').value = userData.Gender;
             document.getElementById('deviceIdField').value = userData.DeviceId;
         }
     } catch (error) {

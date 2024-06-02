@@ -8,17 +8,21 @@ import { displayChartData, analyzeData } from "../shared/displayHelpers.js"
 //declare variables 
 let allStructuredReadings = [];
 let chart, series;
+var userId = getUserIdFromSessionStorage();
 
 
 const onLoadDataButtonClick = async () => {
-  const userId = getUserIdFromSessionStorage();
-
   await displayChartData(userId, allStructuredReadings, series);
 }
 
 
 const onAnalyzeDataButtonClick = () =>{
-  analyzeData(allStructuredReadings, chart);
+  //check if data was loaded in the chart
+  if (series.data.length === 0) {
+    alert('The chart is empty.');
+  } else {
+    analyzeData(userId,allStructuredReadings, chart);
+  }
 }
 
 //event listener for DOMContentLoaded to ensure DOM is fully loaded before running the script

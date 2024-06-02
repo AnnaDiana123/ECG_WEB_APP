@@ -43,19 +43,38 @@
           </div>
         </div>
     </nav>
-    <div class="container">
-        <label for="pacientName">Pacient Name</label>
-        <input type="text" id="pacientName">
-        <label for="datePicker">Date</label>
-        <input type="date" id="datePicker">
-        <label for="startTimePicker">Start Time</label>
-        <input type="time" id="startTimePicker">
-        <label for="endTimePicker">End Time</label>
-        <input type="time" id="endTimePicker">
-        <button id="loadDataButton">Load Data</button>
-        <button id="analyzeDataButton"> Analyze Data</button>
-        <div id="chartdiv"></div>
-        <div id="analyzisResult"></div>
+    <div class="container mt-4 text-center">
+      <div class="row justify-content-center">
+        <div class="col-md-2">
+          <div class="form-group">
+            <label for="pacientName">Pacient Name</label>
+            <input type="text" id="pacientName" class="form-control">
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <label for="datePicker">Date</label>
+            <input type="date" id="datePicker" class="form-control">
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <label for="startTimePicker">Start Time</label>
+            <input type="time" id="startTimePicker" class="form-control">
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <label for="endTimePicker">End Time</label>
+            <input type="time" id="endTimePicker" class="form-control">
+          </div>
+        </div>
+        <div class="col-md-4 d-flex align-items-end justify-content-center">
+          <button id="loadDataButton" class="btn btn-primary me-2">Load Data</button>
+          <button id="analyzeDataButton" class="btn btn-secondary">Analyze Data</button>
+        </div>
+      </div>
+      <div id="chartdiv" class="mt-4"></div>
     </div>
     <script src="../js/admin/readingDashboard.js" type="module"></script>
     <!-- Resources for amcharts used for ecg graphs-->

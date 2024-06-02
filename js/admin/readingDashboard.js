@@ -8,6 +8,7 @@ import { getUserIdFromName } from "../services/dataServices.js";
 
 
 //declare variables
+var userId;
 let allStructuredReadings = [];
 let chart, series;
 
@@ -21,7 +22,7 @@ const onLoadDataButtonClick = async () => {
     alert("Please fill in the Name of the pacient!")
   }
   else{
-    const userId = await getUserIdFromName(pacientNameValue);
+    userId = await getUserIdFromName(pacientNameValue);
 
     if(userId){
       await displayChartData(userId, allStructuredReadings, series);
@@ -30,7 +31,12 @@ const onLoadDataButtonClick = async () => {
 }
 
 const onAnalyzeDataButtonClick = () => {
-  analyzeData(allStructuredReadings, chart);
+  //check if data was loaded in the chart
+  if (series.data.length === 0) {
+    alert('The chart is empty.');
+  } else {
+    analyzeData(userId,allStructuredReadings, chart);
+  }
 }
 
 

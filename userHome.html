@@ -43,23 +43,34 @@
         </div>
     </nav>
 
-
-    <div class="container" style="text-align:center">
-      <h2>Personal Data</h2>
+    <div class="container mt-5">
+      <h2 class="text-center mb-4">Personal Data</h2>
       <form id="dataForm">
-          <div class="mb-3">
-              <label for="nameField">Name</label>
-              <input type="text" id="nameField" readonly>
-          </div>
-          <div>
-            <label for="cnpField">CNP</label>
-            <input type="text" id="cnpField" readonly>
-          </div>
-          <div>
+        <div class="row justify-content-center">
+          <div class="col-lg-6">
+            <div class="mb-3">
+              <label for="nameField" class="form-label">Name</label>
+              <input type="text" id="nameField" class="form-control" readonly>
+            </div>
+            <div class="mb-3">
+              <label for="cnpField" class="form-label">CNP</label>
+              <input type="text" id="cnpField" class="form-control" readonly>
+            </div>
+            <div class="mb-3">
+              <label for="birthdayField" class="form-label">Birthday</label>
+              <input type="text" id="birthdayField" class="form-control" readonly>
+            </div>
+            <div class="mb-3">
+              <label for="genderField" class="form-label">Gender</label>
+              <input type="text" id="genderField" class="form-control" readonly>
+            </div>
+            <div class="mb-3">
               <label for="deviceIdField" class="form-label">Device Id</label>
-              <input type="text" id="deviceIdField">
+              <input type="text" id="deviceIdField" class="form-control">
+            </div>
+            <button id="updateDeviceIdButton" class="btn btn-primary">Update Device ID</button>
           </div>
-          <button id="updateDeviceIdButton">Update Device ID</button>
+        </div>
       </form>
     </div>
 

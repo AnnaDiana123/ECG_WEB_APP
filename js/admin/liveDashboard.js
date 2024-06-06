@@ -13,7 +13,11 @@ var unsubscribe;
 const onLoadLiveDataButtonClick = async () => {
   //unsubscrie to listening the previous user live data
   if(unsubscribe){
+    //remove the series from the chart that coresponds to the previous user
     unsubscribe();
+    if(series.data.length > 0){
+      series.data.setAll([]);
+    }
   }
 
   //get the date selected by the user
@@ -26,25 +30,23 @@ const onLoadLiveDataButtonClick = async () => {
     const userId = await getUserIdFromName(pacientNameValue);
 
     if(userId){
-      unsubscribe = subscribeToEcgReadings(series,userId);
+      unsubscribe = await subscribeToEcgReadings(series,userId);
     }
   }
 }
 
 
 //event listener for DOMContentLoaded to ensure DOM is fully loaded before running the script
-document.addEventListener('DOMContentLoaded', () => {
-  const chartResult = initializeChart('chartdiv'); 
+document.addEventListener("DOMContentLoaded", () => {
+  const chartResult = initializeChart("chartdiv"); 
   chart = chartResult.chart;
   series = chartResult.series;
-
-
   //get buttons
-  const signOutButton = document.getElementById('signOutButton');
-  const loadLiveDataButton = document.getElementById('loadLiveDataButton');
+  const signOutButton = document.getElementById("signOutButton");
+  const loadLiveDataButton = document.getElementById("loadLiveDataButton");
 
   //add event listeners to the buttons
-  signOutButton.addEventListener('click', signOut);
+  signOutButton.addEventListener("click", signOut);
   loadLiveDataButton.addEventListener("click", onLoadLiveDataButtonClick);
 
 });

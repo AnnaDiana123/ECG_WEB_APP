@@ -15,7 +15,7 @@ let RegisterUser = evt => {
     registerUser(emailInput.value, passwordInput.value, nameInput.value,
         cnpInput.value, birthdayInput.value, genderInput.value, deviceIdInput.value)
         .then(user => {
-            alert('User registered successfully!');
+            alert("User registered successfully!");
         })
         .catch(error => {
             alert(error.message);
@@ -24,4 +24,4 @@ let RegisterUser = evt => {
 };
 
 
-MainForm.addEventListener('submit',RegisterUser);
+MainForm.addEventListener("submit",RegisterUser);

@@ -3,19 +3,19 @@ export const initializeChart = (divId) => {
     let series;
 
     am5.ready(function() {
-    // Create root element
+    //create root element
     // https://www.amcharts.com/docs/v5/getting-started/#Root_element
     var root = am5.Root.new(divId);
     
     
-    // Set themes
+    //set themes
     // https://www.amcharts.com/docs/v5/concepts/themes/
     root.setThemes([
       am5themes_Animated.new(root)
     ]);
 
 
-    // Create chart
+    //create chart
     // https://www.amcharts.com/docs/v5/charts/xy-chart/
     chart = root.container.children.push(am5xy.XYChart.new(root, {
       panX: true,
@@ -29,14 +29,14 @@ export const initializeChart = (divId) => {
     chart.get("colors").set("step", 3);
 
 
-    // Add cursor
+    //ddd cursor
     // https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
     var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {}));
     cursor.lineY.set("visible", false);
 
 
 
-    // Create axes
+    //create axes
     // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
     var xAxis = chart.xAxes.push(am5xy.DateAxis.new(root, {
       maxDeviation: 0.3,
@@ -51,7 +51,7 @@ export const initializeChart = (divId) => {
       tooltip: am5.Tooltip.new(root, {})
     }));
 
-    // Adjust the tooltip to display dates in a format that includes milliseconds
+    //adjust the tooltip to display dates in a format with milliseconds
     xAxis.get("tooltip").label.set("text", "{value.formatDate('HH:mm:ss.SSS')}");
 
     var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {

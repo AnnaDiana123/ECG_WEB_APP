@@ -35,7 +35,7 @@ export const registerUser = async (email,password,name,cnp, birthday, gender, de
         const userRef = doc(db, "UserAuthList", credentials.user.uid);
 
         //set user details
-        await setDoc(userRef, { Name: name, CNP: cnp, Birthday:birthday, Gender:gender, DeviceId: deviceId, Role: "User"});
+        await setDoc(userRef, { Name: name, CNP: cnp, Birthday:birthday, Gender:gender, DeviceId: deviceId, Role: "User", email: email});
         return credentials.user;
         
     } catch (error) {
@@ -47,7 +47,7 @@ export const registerUser = async (email,password,name,cnp, birthday, gender, de
 export const signOut = ()=>{
     //remove the info and cred of the user
     sessionStorage.removeItem("user-creds");
-    window.location.href='../../index.html';
+    window.location.href="../../index.html";
 }
 
 export const getUserIdFromSessionStorage = () => {

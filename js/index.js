@@ -5,6 +5,7 @@ let passwordInput = document.getElementById("passwordInput");
 
 let SignInUser = evt => {
     evt.preventDefault();
+    //try to sign in with a user
     signInUser(emailInput.value, passwordInput.value)
         .then(user => {
             if (user.uid == 'lCZHCUs76gXGS5dEfYiWZQNdp5G2') {
@@ -20,3 +21,4 @@ let SignInUser = evt => {
 };
 
 MainForm.addEventListener('submit',SignInUser);
+

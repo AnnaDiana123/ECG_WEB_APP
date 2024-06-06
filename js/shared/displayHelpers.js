@@ -1,23 +1,4 @@
-import { fetchEcgReadings, fetchUserData } from "../services/dataServices";
-
-
-export const displayHealthParameters = (corespondingBatch) => {
-    document.getElementById('analyzisResult').innerHTML = "";
-    if (corespondingBatch) {
-      const batchStartingTime = new Date(Number(corespondingBatch.docId));
-
-      document.getElementById('analyzisResult').innerHTML = `
-          The following values were extracted from an analysis of approximately one minute of ECG signal, starting at <b>${batchStartingTime}</b>.
-          <br> <b> BPM: </b> ${corespondingBatch.bpm}
-          <br> <b> RR Intervals: </b> ${corespondingBatch.rrIntervals.join(", ")}
-          <br> <b> SDNN: </b> ${corespondingBatch.sdnn}
-          <br> <b> RMSSD: </b> ${corespondingBatch.rmssd}
-      `;
-  } else {
-      document.getElementById('analyzisResult').textContent = "No corresponding batch found for the selected time.";
-  }
-};
-  
+import { fetchEcgReadings } from "../services/dataServices";
 
 
 export const analyzeData = (userId, allStructuredReadings, chart) => {

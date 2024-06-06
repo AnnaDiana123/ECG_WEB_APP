@@ -9,7 +9,7 @@ let chart, series;
 
 
 //event listener for DOMContentLoaded to ensure DOM is fully loaded before running the script
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   const chartResult = initializeChart('chartdiv'); 
   chart = chartResult.chart;
   series = chartResult.series;
@@ -22,5 +22,5 @@ document.addEventListener('DOMContentLoaded', () => {
   signOutButton.addEventListener('click', signOut);
 
   const userId = getUserIdFromSessionStorage();
-  subscribeToEcgReadings(series,userId);
+  await subscribeToEcgReadings(series,userId);
 });

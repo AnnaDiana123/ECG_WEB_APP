@@ -1,24 +1,34 @@
 import { signInUser } from "./services/auth.js";
+import { fetchUserData } from "./services/dataServices.js";
 
 let emailInput = document.getElementById("emailInput");
 let passwordInput = document.getElementById("passwordInput");
 
-let SignInUser = evt => {
+let SignInUser = async (evt) => {
     evt.preventDefault();
-    //try to sign in with a user
-    signInUser(emailInput.value, passwordInput.value)
-        .then(user => {
-            if (user.uid == 'lCZHCUs76gXGS5dEfYiWZQNdp5G2') {
+    try {
+        const user = await signInUser(emailInput.value, passwordInput.value);
+        const uid = user.uid;
+
+        //fetch user role from Firestore
+        const userData = await fetchUserData(uid);
+        if (userData) {
+            const userRole = userData.Role;
+            // Redirect based on role
+            if (userRole === "Admin") {
                 window.location.href = "./html/admin/adminHome.html";
-            } else {
+            } else if (userRole === "User") {
                 window.location.href = "./html/user/userHome.html";
+            } else {
+                throw new Error("Invalid user role");
             }
-        })
-        .catch(error => {
-            alert(error.message);
-            console.log(error.code, error.message);
-        });
+        } else {
+            throw new Error("User document does not exist");
+        }
+    } catch (error) {
+        alert(error.message);
+    }
 };
 
-MainForm.addEventListener('submit',SignInUser);
+MainForm.addEventListener("submit",SignInUser);
 

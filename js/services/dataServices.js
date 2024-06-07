@@ -8,7 +8,7 @@ const app = initializeApp(firebaseConfig);
 //fet Firestore instance
 const db = getFirestore(app);
 
-// global variables
+//global variables
 let isCurrentlyDisplaying = false; //variable for processing the queue when displaying the live data
 
 export const fetchEcgReadings= async (userId, date, startTime, endTime) => {
@@ -63,7 +63,6 @@ export const fetchUserData = async (userId) => {
     //return user data
     return docSnap.data();
   } else {
-    console.log("No such user!");
     return null;
   }
 }
@@ -78,11 +77,13 @@ export const fetchUsersList = async () => {
 
   //loop through each document in the snapshot
   querySnapshot.forEach(doc => {
-    //push all entries in the array
-    users.push({
-      //create a new object with the document data
-      ...doc.data()
-    });
+    //push all entries in the array besides the admin
+    if(doc.data().Role === "User"){
+      users.push({
+        //create a new object with the document data
+        ...doc.data()
+      });
+    }
   });
 
   return users;
@@ -98,7 +99,6 @@ export const fetchECGBatch = async (userId, batchId) => {
     //return batch data
     return docSnap.data();
   } else {
-    console.log("No such batch!");
     return null;
   }
 
@@ -162,7 +162,6 @@ export const subscribeToEcgReadings = async (series,userId) => {
     }
     else{
       const data = lastDocument.data();
-      console.log("Last document:", lastDocument.data());
 
       if(new Date().getTime() - lastDocument.id <= 1.5 * 60 * 1000 ){ //the last document should not be older then 1.5 minutes
         document.getElementById("lastBatchText").innerHTML = "";

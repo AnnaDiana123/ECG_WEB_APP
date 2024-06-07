@@ -19,7 +19,6 @@ let RegisterUser = evt => {
         })
         .catch(error => {
             alert(error.message);
-            console.log(error.code, error.message);
         });
 };
 

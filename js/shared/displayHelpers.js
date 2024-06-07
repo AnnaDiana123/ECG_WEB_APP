@@ -13,8 +13,8 @@ export const analyzeData = (userId, allStructuredReadings, chart) => {
     let timeIntervalZoomed = endTimeUnix - startTimeUnix;
 
 
-    const oneMinute = 60000; // 60.000 milliseconds
-    if (timeIntervalZoomed <= oneMinute + 10000 && timeIntervalZoomed >= oneMinute - 10000) { // 10-second buffer
+    const oneMinute = 60000; //60.000 milliseconds
+    if (timeIntervalZoomed <= oneMinute + 10000 && timeIntervalZoomed >= oneMinute - 10000) { //10-second buffer
           //find coresponding batch in order to display the coresponding health parameters
           const corespondingBatch = allStructuredReadings.find(data => {
           return data.docId <= startTimeUnix + 10000 && data.docId>= startTimeUnix - 10000; //10 second range
@@ -72,11 +72,10 @@ export const displayChartData = async (userId,allStructuredReadings,series) => {
             chartData = chartData.concat(batch.ecgData);  
           });
       
-          // Update the chart with the new data
+          //update the chart with the new data
           series.data.setAll(chartData);
 
         } catch (error) {
-          console.error("Error loading data:", error); // Log any errors that occur
           alert("Failed to load data. Please try again.");
         }
     }

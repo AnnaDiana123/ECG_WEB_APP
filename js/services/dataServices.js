@@ -37,7 +37,7 @@ export const fetchEcgReadings= async (userId, date, startTime, endTime) => {
       
       //push all entries in the array
       allStructuredReadings.push({
-        docId: doc.id, // Store the document ID
+        docId: doc.id, 
         ecgData: data.ecg_data, 
         rrIntervals: data.rr_intervals, 
         bpm: data.bpm, 

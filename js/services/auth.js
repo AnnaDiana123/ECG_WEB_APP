@@ -1,8 +1,10 @@
 //import modules from firebase
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 import { firebaseConfig } from "../components/firebaseConfig.js";
+import { getAuth} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, browserSessionPersistence, setPersistence  } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
 
 //initialize Firebase app with configuration
 const app = initializeApp(firebaseConfig);
@@ -14,6 +16,9 @@ const auth = getAuth(app);
 
 export const signInUser = async (email, password) => {
     try {
+        //set authentication persistence to SESSION
+        await setPersistence(auth, browserSessionPersistence);
+
         //try to sign in with email and password
         const credentials = await signInWithEmailAndPassword(auth, email, password);
 

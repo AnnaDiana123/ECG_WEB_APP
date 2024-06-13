@@ -1,25 +1,12 @@
 //import moduels from Firestore
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-import { getFirestore, doc,  updateDoc} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+import { doc,  updateDoc} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 //import firebase config
-import { firebaseConfig } from "../components/firebaseConfig.js";
+import { db } from "../components/firebaseConfig.js";
 //import functionalities
-import { signOut, getUserIdFromSessionStorage } from "../services/auth.js";
+import { signOutUser, getUserIdFromSessionStorage, checkCred } from "../services/auth.js";
 import { fetchUserData } from "../services/dataServices.js";
 
 
-//initialize firebase app with configuration
-const app = initializeApp(firebaseConfig);
-//get firestore instance
-const db = getFirestore(app);
-
-
-//functions that checks user id stored in session storage
-const checkCred = ()=>{
-    if(!sessionStorage.getItem("user-creds"))
-        //redirect to login page if no user creds are found
-        window.location.href="index.html";
-}
 
 
 //function to display user data
@@ -86,6 +73,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const updateDeviceIdButton = document.getElementById("updateDeviceIdButton");
 
     //add event listeners to the buttons
-    signOutButton.addEventListener("click", signOut); 
+    signOutButton.addEventListener("click", signOutUser); 
     updateDeviceIdButton.addEventListener("click", updateDeviceId); 
 });

@@ -1,9 +1,9 @@
 //initialize chart
 import { initializeChart } from "../components/chart.js";
 //import functionalities
-import { signOut } from "../services/auth.js";
+import { signOutUser, checkCred } from "../services/auth.js";
 import { displayChartData , analyzeData } from "../shared/displayHelpers.js";
-import { getUserIdFromName } from "../services/dataServices.js";
+import { getUserIdFromCNP } from "../services/dataServices.js";
 
 
 
@@ -16,13 +16,13 @@ let chart, series;
 const onLoadDataButtonClick = async () => {
 
   //get the date selected by the user
-  let pacientNameValue= document.getElementById("pacientName").value;
+  let pacientCNPValue= document.getElementById("pacientCNP").value;
 
-  if(!pacientNameValue){
-    alert("Please fill in the Name of the pacient!")
+  if(!pacientCNPValue){
+    alert("Please fill in the CNP of the pacient!")
   }
   else{
-    userId = await getUserIdFromName(pacientNameValue);
+    userId = await getUserIdFromCNP(pacientCNPValue);
 
     if(userId){
       await displayChartData(userId, allStructuredReadings, series);
@@ -42,6 +42,9 @@ const onAnalyzeDataButtonClick = () => {
 
    //initialize chart
 document.addEventListener("DOMContentLoaded", () => {
+  //check creds from session storage
+  checkCred();
+
   const chartResult = initializeChart("chartdiv");
   chart = chartResult.chart;
   series = chartResult.series;
@@ -54,5 +57,5 @@ document.addEventListener("DOMContentLoaded", () => {
   //add event listeners to the buttons
   loadDataButton.addEventListener("click", onLoadDataButtonClick);
   analyzeDataButton.addEventListener("click", onAnalyzeDataButtonClick);
-  signOutButton.addEventListener("click", signOut);
+  signOutButton.addEventListener("click", signOutUser);
 });

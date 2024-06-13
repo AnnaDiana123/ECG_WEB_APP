@@ -14,7 +14,7 @@ let SignInUser = async (evt) => {
         const userData = await fetchUserData(uid);
         if (userData) {
             const userRole = userData.Role;
-            // Redirect based on role
+            //redirect based on role
             if (userRole === "Admin") {
                 window.location.href = "./html/admin/adminHome.html";
             } else if (userRole === "User") {
@@ -31,4 +31,5 @@ let SignInUser = async (evt) => {
 };
 
 MainForm.addEventListener("submit",SignInUser);
+event.preventDefault(); // Prevent the default form submission behavior
 

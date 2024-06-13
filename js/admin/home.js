@@ -1,14 +1,10 @@
 //import functionalities
 import { fetchUsersList } from "../services/dataServices.js";
-import { signOut } from "../services/auth.js";
+import { signOutUser, checkCred } from "../services/auth.js";
 
 //array the list of users
 let users = [];
 
-const checkCred = () => {
-    if(!sessionStorage.getItem("user-creds"))
-        window.location.href="index.html";
-}
 
 let currentPage = 0;
 const itemsPerPage = 10;
@@ -77,7 +73,7 @@ function prevPage(){
 
 //event listener for DOMContentLoaded to ensure DOM is fully loaded before running the script
 document.addEventListener("DOMContentLoaded", async () => {
-    //vheck creds from session storage
+    //check creds from session storage
     checkCred();
 
     //get buttons
@@ -86,7 +82,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const prevBtn = document.getElementById("prevButton");
     
     //add event listener to buttons
-    signOutBtn.addEventListener("click", signOut);
+    signOutBtn.addEventListener("click", signOutUser);
     nextBtn.addEventListener("click", nextPage);
     prevBtn.addEventListener("click", prevPage);
 

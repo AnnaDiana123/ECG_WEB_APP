@@ -1,12 +1,7 @@
 //import firebase modules
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-import { getFirestore, collection, getDocs, query, where, documentId, doc, getDoc, onSnapshot, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
-import { firebaseConfig } from "../components/firebaseConfig";
+import { collection, getDocs, query, where, documentId, doc, getDoc, onSnapshot, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+import { db } from "../components/firebaseConfig.js";
 
-//initialize Firebase app with configuration
-const app = initializeApp(firebaseConfig);
-//fet Firestore instance
-const db = getFirestore(app);
 
 //global variables
 let isCurrentlyDisplaying = false; //variable for processing the queue when displaying the live data
@@ -184,12 +179,12 @@ export const subscribeToEcgReadings = async (series,userId) => {
 };
 
 
-export const getUserIdFromName = async (name) =>{
+export const getUserIdFromCNP = async (CNP) =>{
   try {
     //get reference to the user collection
     const userRef = collection(db, "UserAuthList");
     //query to find user by name
-    const q = query(userRef, where("Name", "==", name));
+    const q = query(userRef, where("CNP", "==", CNP));
 
     const querySnapshot = await getDocs(q);
 

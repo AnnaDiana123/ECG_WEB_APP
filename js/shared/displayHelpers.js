@@ -1,4 +1,4 @@
-import { fetchEcgReadings } from "../services/dataServices";
+import { fetchEcgReadings } from "../services/dataServices.js";
 
 
 export const analyzeData = (userId, allStructuredReadings, chart) => {

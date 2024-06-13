@@ -1,5 +1,6 @@
 import { fetchUserData, fetchECGBatch } from "./services/dataServices.js";
 
+
 function generatePDF() {
   //get the jsPDF object from the window object
   const { jsPDF } = window.jspdf;

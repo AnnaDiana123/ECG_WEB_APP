@@ -1,18 +1,13 @@
 //import modules from firebase
-import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
-import { firebaseConfig } from "../components/firebaseConfig.js";
-import { getAuth} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+import { signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+import {  db, auth } from "../components/firebaseConfig.js";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, browserSessionPersistence, setPersistence  } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
-
-//initialize Firebase app with configuration
-const app = initializeApp(firebaseConfig);
-//fet Firestore instance
-const db = getFirestore(app);
-//fet Firebase Auth instance
-const auth = getAuth(app);
-
+export const checkCred = () => {
+    if(!sessionStorage.getItem("user-creds"))
+        window.location.href="index.html";
+}
 
 export const signInUser = async (email, password) => {
     try {
@@ -24,6 +19,8 @@ export const signInUser = async (email, password) => {
 
         //store user id in session storage
         sessionStorage.setItem("user-creds", JSON.stringify(credentials.user));
+
+        
         return credentials.user;
 
     } catch (error) {
@@ -49,9 +46,10 @@ export const registerUser = async (email,password,name,cnp, birthday, gender, de
     }
 }
 
-export const signOut = ()=>{
+export const signOutUser = async ()=>{
     //remove the info and cred of the user
     sessionStorage.removeItem("user-creds");
+    await signOut(auth);
     window.location.href="../../index.html";
 }
 
@@ -60,4 +58,5 @@ export const getUserIdFromSessionStorage = () => {
     const userId = UserCreds.uid;
 
     return userId;
+
 }

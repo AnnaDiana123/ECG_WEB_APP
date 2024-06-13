@@ -1,14 +1,14 @@
 //initialize chart
 import { initializeChart } from "../components/chart.js";
 //import functionalities
-import { getUserIdFromSessionStorage, signOut } from "../services/auth.js";
+import { getUserIdFromSessionStorage, signOutUser, checkCred } from "../services/auth.js";
 import { displayChartData, analyzeData } from "../shared/displayHelpers.js"
 
 
 //declare variables 
 let allStructuredReadings = [];
 let chart, series;
-var userId = getUserIdFromSessionStorage();
+var userId;
 
 
 const onLoadDataButtonClick = async () => {
@@ -27,6 +27,11 @@ const onAnalyzeDataButtonClick = () =>{
 
 //event listener for DOMContentLoaded to ensure DOM is fully loaded before running the script
 document.addEventListener("DOMContentLoaded", () => {
+  //check creds from session storage
+  checkCred();
+
+  userId = getUserIdFromSessionStorage();
+
   const chartResult = initializeChart("chartdiv"); 
   chart = chartResult.chart;
   series = chartResult.series;
@@ -39,5 +44,5 @@ document.addEventListener("DOMContentLoaded", () => {
   //add event listeners to the buttons
   loadDataButton.addEventListener("click", onLoadDataButtonClick);
   analyzeDataButton.addEventListener("click", onAnalyzeDataButtonClick);
-  signOutButton.addEventListener("click", signOut);
+  signOutButton.addEventListener("click", signOutUser);
 });

@@ -1,9 +1,9 @@
 //initialize chart
 import { initializeChart } from "../components/chart.js";
 //import functionalities
-import { signOut } from "../services/auth.js";
+import { signOutUser, checkCred } from "../services/auth.js";
 import { subscribeToEcgReadings } from "../services/dataServices.js";
-import { getUserIdFromName } from "../services/dataServices.js";
+import { getUserIdFromCNP } from "../services/dataServices.js";
 
 
 //declare variables 
@@ -21,13 +21,13 @@ const onLoadLiveDataButtonClick = async () => {
   }
 
   //get the date selected by the user
-  let pacientNameValue= document.getElementById("pacientName").value;
+  let pacientCNPValue= document.getElementById("pacientCNP").value;
 
-  if(!pacientNameValue){
-    alert("Please fill in the Name of the pacient!")
+  if(!pacientCNPValue){
+    alert("Please fill in the CNP of the pacient!")
   }
   else{
-    const userId = await getUserIdFromName(pacientNameValue);
+    const userId = await getUserIdFromCNP(pacientCNPValue);
 
     if(userId){
       unsubscribe = await subscribeToEcgReadings(series,userId);
@@ -38,6 +38,9 @@ const onLoadLiveDataButtonClick = async () => {
 
 //event listener for DOMContentLoaded to ensure DOM is fully loaded before running the script
 document.addEventListener("DOMContentLoaded", () => {
+  //check creds from session storage
+  checkCred();
+
   const chartResult = initializeChart("chartdiv"); 
   chart = chartResult.chart;
   series = chartResult.series;
@@ -46,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const loadLiveDataButton = document.getElementById("loadLiveDataButton");
 
   //add event listeners to the buttons
-  signOutButton.addEventListener("click", signOut);
+  signOutButton.addEventListener("click", signOutUser);
   loadLiveDataButton.addEventListener("click", onLoadLiveDataButtonClick);
 
 });

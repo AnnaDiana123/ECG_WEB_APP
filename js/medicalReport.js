@@ -88,53 +88,73 @@ const setInterpretationRange = (age, gender) => {
   }
 }
 
-const  setInterpretationMessage = (bpm, sdnn, rmssd, rrIntervals, bpmRange, sdnnRange, rmssdRange, rrIntervalsRange) => {
+const setInterpretationMessage = (bpm, sdnn, rmssd, rrIntervals, bpmRange, sdnnRange, rmssdRange, rrIntervalsRange) => {
   let bpmMessage, sdnnMessage, rmssdMessage, rrMessage = "";
+  let bpmColor, sdnnColor, rmssdColor, rrColor = "";
 
   //BPM Messages
   if (bpm < bpmRange.min) {
-      bpmMessage = "Your resting heart rate is below 60 BPM, which might indicate bradycardia. This can be caused by high fitness levels, certain medications, or heart conditions.";
+      bpmMessage = "Your resting heart rate is below 60 BPM, which might indicate bradycardia.";
+      bpmColor = "red";
   } else if (bpm > bpmRange.max) {
-      bpmMessage = "Your resting heart rate is above 100 BPM, which might indicate tachycardia. This can be due to stress, anxiety, dehydration, or heart conditions.";
+      bpmMessage = "Your resting heart rate is above 100 BPM, which might indicate tachycardia.";
+      bpmColor = "red";
   } else {
       bpmMessage = "Your resting heart rate is within the normal range (60-100 BPM).";
+      bpmColor = "black";
   }
 
   //SDNN Messages
   if (sdnn < sdnnRange.min) {
       sdnnMessage = "Your heart rate variability is low, suggesting reduced flexibility in your heart's response. This can be caused by stress, fatigue, or chronic health conditions.";
+      sdnnColor = "red";
   } else if (sdnn > sdnnRange.max) {
       sdnnMessage = "Your heart rate variability is high, which might indicate a very responsive nervous system. This can be seen in highly relaxed or fit individuals but can also occur due to some medical conditions.";
+      sdnnColor = "red";
   } else {
       sdnnMessage = "Your heart rate variability (SDNN) is within the normal range.";
+      sdnnColor = "black";
   }
 
   //RMSSD Messages
   if (rmssd < rmssdRange.min) {
       rmssdMessage = "Your short-term heart rate variability is low, which might mean your heart isn't responding well to changes. This can be due to stress, lack of sleep, or certain health conditions.";
+      rmssdColor = "red";
   } else if (rmssd > rmssdRange.max) {
       rmssdMessage = "Your short-term heart rate variability is high, which might mean your heart is very responsive to changes. This can be seen in relaxed or well-rested individuals but might also be due to some medical conditions.";
+      rmssdColor = "red";
   } else {
       rmssdMessage = "Your short-term heart rate variability (RMSSD) is within the normal range.";
+      rmssdColor = "black";
   }
 
   //RR Interval Messages
   for (let i = 0; i < rrIntervals.length; i++) {
       if (rrIntervals[i] < rrIntervalsRange.min || rrIntervals[i] > rrIntervalsRange.max) {
           rrMessage = `One of your RR intervals (${rrIntervals[i]} ms) is outside the normal range. This could indicate an irregular heartbeat or other cardiac issue.`;
+          rrColor = "red";
           break; //exit loop after finding the first abnormal interval
       }
   }
   if (rrMessage == "") {
       rrMessage = "Your RR intervals are within the normal range.";
+      rrColor = "black";
   }
 
-  //display the messages
+  //display messages
   document.getElementById("bpmText").innerText = bpmMessage;
+  document.getElementById("bpmText").style.color = bpmColor;
+  
   document.getElementById("sdnnText").innerText = sdnnMessage;
+  document.getElementById("sdnnText").style.color = sdnnColor;
+  
   document.getElementById("rmssdText").innerText = rmssdMessage;
+  document.getElementById("rmssdText").style.color = rmssdColor;
+  
   document.getElementById("rrIntervalsText").innerText = rrMessage;
+  document.getElementById("rrIntervalsText").style.color = rrColor;
 }
+
 
 
 
